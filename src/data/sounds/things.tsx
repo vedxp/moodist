@@ -1,9 +1,11 @@
-import { GiWindchimes } from 'react-icons/gi/index';
+import { GiWindchimes, GiFilmProjector } from 'react-icons/gi/index';
 import { BsFillKeyboardFill } from 'react-icons/bs/index';
 import { FaKeyboard, FaClock, FaFan } from 'react-icons/fa/index';
-import { MdSmartToy } from 'react-icons/md/index';
+import { MdSmartToy, MdWaterDrop, MdRadio } from 'react-icons/md/index';
 import { TbBowlFilled } from 'react-icons/tb/index';
-import { RiFilePaper2Fill } from 'react-icons/ri/index';
+import { RiFilePaper2Fill, RiBubbleChartFill } from 'react-icons/ri/index';
+import { BiSolidDryer } from 'react-icons/bi/index';
+import { IoIosRadio } from 'react-icons/io/index';
 
 import type { Category } from '../types';
 
@@ -52,6 +54,42 @@ export const things: Category = {
       id: 'ceiling-fan',
       label: 'Ceiling Fan',
       src: '/sounds/things/ceiling-fan.mp3',
+    },
+    {
+      icon: <BiSolidDryer />,
+      id: 'dryer',
+      label: 'Dryer',
+      src: '/sounds/things/dryer.mp3',
+    },
+    {
+      icon: <GiFilmProjector />,
+      id: 'slide-projector',
+      label: 'Slide Projector',
+      src: '/sounds/things/slide-projector.mp3',
+    },
+    {
+      icon: <MdWaterDrop />,
+      id: 'boiling-water',
+      label: 'Boiling Water',
+      src: '/sounds/things/boiling-water.mp3',
+    },
+    {
+      icon: <RiBubbleChartFill />,
+      id: 'bubbles',
+      label: 'Bubbles',
+      src: '/sounds/things/bubbles.mp3',
+    },
+    {
+      icon: <MdRadio />,
+      id: 'tuning-radio',
+      label: 'Tuning Radio',
+      src: '/sounds/things/tuning-radio.mp3',
+    },
+    {
+      icon: <IoIosRadio />,
+      id: 'morse-code',
+      label: 'Morse Code',
+      src: '/sounds/things/morse-code.mp3',
     },
   ],
   title: 'Things',

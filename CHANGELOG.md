@@ -2,6 +2,108 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/remvze/moodist/compare/v1.3.0...v1.3.1) (2024-02-01)
+
+
+### ✨ Features
+
+* add donate item ([f12ca48](https://github.com/remvze/moodist/commit/f12ca4806c9279f69f298bef770f8cac69a0860a))
+* add donate section ([d449c29](https://github.com/remvze/moodist/commit/d449c29321024a43517e92cc59223b4b22fe2e82))
+* add donation header ([17b4f25](https://github.com/remvze/moodist/commit/17b4f25ff10e09a917203e67cf963cac8358de1a))
+
+
+### 🐛 Bug Fixes
+
+* coffee typo ([8e02910](https://github.com/remvze/moodist/commit/8e0291004a90e55b67a921b9ffb483b409109ae4))
+* complete donation links ([e6f768a](https://github.com/remvze/moodist/commit/e6f768a5e6dc983ae04b70f6c434fd4c13aeb506))
+
+
+### 🚚 Chores
+
+* add donation link to README file ([1f806c4](https://github.com/remvze/moodist/commit/1f806c4e561d79a00850130eda09376299d85ed2))
+
+## [1.3.0](https://github.com/remvze/moodist/compare/v1.2.0...v1.3.0) (2024-02-01)
+
+
+### ♻️ Code Refactoring
+
+* remove media session ([1f63534](https://github.com/remvze/moodist/commit/1f635348e3e5cf73ee76e1c5fac7b5f5b7f7ea6a))
+* remove unmute and media session ([b77c817](https://github.com/remvze/moodist/commit/b77c817db25e1a738b6770b1ae86d792e0d42240))
+
+
+### ✨ Features
+
+* add fading to intro and outro ([5467bbb](https://github.com/remvze/moodist/commit/5467bbbc2437a5504e157122a995ad7a565ff0b8))
+* add loader for favorites ([f682a91](https://github.com/remvze/moodist/commit/f682a910da97eb53cfb90ce955e953f05088e686))
+* add media session ([5e0a842](https://github.com/remvze/moodist/commit/5e0a84259ff5586700c4e10087485d905be7ccee))
+
+
+### 🐛 Bug Fixes
+
+* add audio element ([889962b](https://github.com/remvze/moodist/commit/889962babe6e940ff283a41b145620d2a0477c70))
+* add media session ([81f33d9](https://github.com/remvze/moodist/commit/81f33d9d375f63b4dd0bf58ad28a72354d85706e))
+* add media session ([216b913](https://github.com/remvze/moodist/commit/216b913ccd0a7dfe0d03575f842aac9711ef0216))
+* add unmute for iOS ([e422b52](https://github.com/remvze/moodist/commit/e422b52436c7dfc0b6cf866afa2b74dc219dcf2f))
+* connect audio context to audio element ([463667c](https://github.com/remvze/moodist/commit/463667c868371540c46c9007e686961f9a4be7e5))
+* increase decimal ([a33ae45](https://github.com/remvze/moodist/commit/a33ae450cf2c883228c76d04df8df75839c12753))
+* remove fading ([d96461d](https://github.com/remvze/moodist/commit/d96461d1ea83c72bfe651d84cf34fabc029c200e))
+* resume audio ([8e4d053](https://github.com/remvze/moodist/commit/8e4d0531e0e9aaf4e52b3b3a8666b74ff0c0222e))
+* undo changes ([32da26c](https://github.com/remvze/moodist/commit/32da26ccfc0c5bdbe031e26ea48363ea0d8a7b23))
+
+
+### 🚚 Chores
+
+* add binaural beats ([f1d212a](https://github.com/remvze/moodist/commit/f1d212abc8b69a614bbdc4a23876e2eab7cbb574))
+* add more sounds ([38f6f7d](https://github.com/remvze/moodist/commit/38f6f7dbe6898ed78e51eb3f0c7936f003ddca08))
+* add more sounds ([937bf29](https://github.com/remvze/moodist/commit/937bf29d09cbce20ea0b6b0c87879f3a7dd1d497))
+* add more sounds ([e2172fd](https://github.com/remvze/moodist/commit/e2172fd2bbd0e12a705c9efc98c72ad99d86d006))
+* add more sounds ([1f12afa](https://github.com/remvze/moodist/commit/1f12afa3943154d70145ef6adc6aeee79f7a7af3))
+* add more sounds ([cd05704](https://github.com/remvze/moodist/commit/cd05704a73ffb33aa0ccf5d789328a4cefc320f1))
+* add more sounds ([01b4bdb](https://github.com/remvze/moodist/commit/01b4bdbb572285984bcdc9bb94c1a1b6dd2630c5))
+
+## [1.2.0](https://github.com/remvze/moodist/compare/v1.1.0...v1.2.0) (2024-01-04)
+
+
+### ♻️ Code Refactoring
+
+* better item structure for menu ([26bf016](https://github.com/remvze/moodist/commit/26bf01690cfcc105b661951bcb2347394a67fb68))
+* rewrite menu with floating ui ([8beb42c](https://github.com/remvze/moodist/commit/8beb42cb1b92c99aa9656b35cd7d82094e5baf72))
+
+
+### 🐛 Bug Fixes
+
+* stringify dependency ([1a23e00](https://github.com/remvze/moodist/commit/1a23e004a65960ce169990211f150db25762fead))
+
+
+### ✨ Features
+
+* add animation to menu box ([17027e2](https://github.com/remvze/moodist/commit/17027e299bb9bf958aebaf735c40e7664ad71e8b))
+* add disabled state ([ff26597](https://github.com/remvze/moodist/commit/ff26597d22d444d18d2874a5c278eccc288972de))
+* add menu button ([184bb09](https://github.com/remvze/moodist/commit/184bb09f5ab09fcf877e6a904023d9de72be9a89))
+* add share modal ([35e3215](https://github.com/remvze/moodist/commit/35e32152b153f4dfaf9e071f526f6d7602ea97fc))
+* add share placeholder ([fe2357c](https://github.com/remvze/moodist/commit/fe2357c995713cd0fb8335b325266859dc47a769))
+* basic structure for share link ([ef81f19](https://github.com/remvze/moodist/commit/ef81f198baeb927e3b1768570f75e6638a7bd0b6))
+* **docker:** add dockerfile ([a234bc1](https://github.com/remvze/moodist/commit/a234bc17a66331acbbc1d980cd1f53d58646f534))
+* implement override feature ([0f62f07](https://github.com/remvze/moodist/commit/0f62f0795c5a9e06fa4e62b6b7b1e6c0774dfe0f))
+* implement sharing URL ([93ff72a](https://github.com/remvze/moodist/commit/93ff72a052484b36c9ac821b94b632865b4a3550))
+
+
+### 💄 Styling
+
+* add animation to modal ([7823dc7](https://github.com/remvze/moodist/commit/7823dc7ff473278ef8ee401e69796c17b33da794))
+* add icon to menu items ([131ab29](https://github.com/remvze/moodist/commit/131ab296215812e45a0c60486d75683f3de25d16))
+* change border color ([85b627e](https://github.com/remvze/moodist/commit/85b627ecb96a4f52ecacdb53ed4484c050adba5e))
+* change copy ([c51acd6](https://github.com/remvze/moodist/commit/c51acd62618cc705902dc01f0574a2c9124264c5))
+* change to primary color ([c8e5122](https://github.com/remvze/moodist/commit/c8e51226e57bfa72ad91318de25fc5f9b5751634))
+* widen the menu ([37a0736](https://github.com/remvze/moodist/commit/37a0736a0e7edd09c33940099c884e5b48afbbf1))
+
+
+### 🚚 Chores
+
+* change docker workflow ([cb4bfea](https://github.com/remvze/moodist/commit/cb4bfea5ab4326dee17c78554f12a08ffcb9dd0e))
+* change docker-compose file ([660ee07](https://github.com/remvze/moodist/commit/660ee07a2359ec77c9d56bbe552541246e0f79c5))
+* update GitHub action ([ee60613](https://github.com/remvze/moodist/commit/ee606139a80121fd6ee1b8233f82af994c4e1178))
+
 ## [1.1.0](https://github.com/remvze/moodist/compare/v1.0.0...v1.1.0) (2023-12-29)
 
 

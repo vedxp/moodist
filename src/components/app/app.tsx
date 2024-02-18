@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { BiSolidHeart } from 'react-icons/bi/index';
+import { Howler } from 'howler';
 
 import { useSoundStore } from '@/store';
 
@@ -9,7 +10,8 @@ import { StoreConsumer } from '@/components/store-consumer';
 import { Buttons } from '@/components/buttons';
 import { Categories } from '@/components/categories';
 import { ScrollToTop } from '@/components/scroll-to-top';
-import { Shuffle } from '@/components/shuffle';
+import { SharedModal } from '@/components/modals/shared';
+import { Menu } from '@/components/menu/menu';
 import { SnackbarProvider } from '@/contexts/snackbar';
 
 import { sounds } from '@/data/sounds';
@@ -34,6 +36,22 @@ export function App() {
       favoriteSounds.find(sound => sound.id === favorite),
     );
   }, [favorites, categories]);
+
+  useEffect(() => {
+    const onChange = () => {
+      const { ctx } = Howler;
+
+      if (ctx && !document.hidden) {
+        setTimeout(() => {
+          ctx.resume();
+        }, 100);
+      }
+    };
+
+    document.addEventListener('visibilitychange', onChange, false);
+
+    return () => document.removeEventListener('visibilitychange', onChange);
+  }, []);
 
   const allCategories = useMemo(() => {
     const favorites = [];
@@ -60,7 +78,8 @@ export function App() {
         </Container>
 
         <ScrollToTop />
-        <Shuffle />
+        <Menu />
+        <SharedModal />
       </StoreConsumer>
     </SnackbarProvider>
   );

@@ -1,0 +1,34 @@
+name: Build and push main image
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  push-store-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@main
+
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.ACCESS_TOKEN}}
+
+      - name: 'Build Inventory Image'
+        run: |
+          IMAGE_NAME="ghcr.io/remvze/moodist"
+
+          GIT_TAG=${{ github.ref }}
+          GIT_TAG=${GIT_TAG#refs/tags/}
+
+          docker build . --tag $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest
+
+          docker build . --tag $IMAGE_NAME:$GIT_TAG
+          docker push $IMAGE_NAME:$GIT_TAG

@@ -1,0 +1,46 @@
+.about {
+  & .effect {
+    position: sticky;
+    top: 0;
+    height: 80px;
+    background: linear-gradient(var(--color-neutral-50), transparent);
+  }
+
+  & .paragraph {
+    padding: 30px 0;
+    background: linear-gradient(
+      transparent,
+      var(--color-neutral-50) 10%,
+      var(--color-neutral-50) 90%,
+      transparent
+    );
+
+    & .counter {
+      width: max-content;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+      font-size: var(--font-xsm);
+      color: var(--color-foreground-subtle);
+      background: linear-gradient(var(--color-neutral-100), transparent);
+      border: 1px solid var(--color-neutral-300);
+      border-radius: 20px 20px 20px 8px;
+
+      & span {
+        font-weight: 500;
+        color: var(--color-foreground);
+      }
+    }
+
+    & .title {
+      margin-bottom: 8px;
+      font-family: var(--font-heading);
+      font-size: var(--font-md);
+      font-weight: 600;
+    }
+
+    & .body {
+      line-height: 1.6;
+      color: var(--color-foreground-subtle);
+    }
+  }
+}
