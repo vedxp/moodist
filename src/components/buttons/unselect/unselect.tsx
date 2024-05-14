@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from 'react';
 import { BiUndo, BiTrash } from 'react-icons/bi/index';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -14,11 +15,30 @@ export function UnselectButton() {
   const restoreHistory = useSoundStore(state => state.restoreHistory);
   const hasHistory = useSoundStore(state => !!state.history);
   const unselectAll = useSoundStore(state => state.unselectAll);
+  const locked = useSoundStore(state => state.locked);
 
   const variants = {
     ...mix(fade(), slideX(15)),
     exit: { opacity: 0 },
   };
+
+  const handleToggle = useCallback(() => {
+    if (locked) return;
+    if (hasHistory) restoreHistory();
+    else if (!noSelected) unselectAll(true);
+  }, [hasHistory, noSelected, unselectAll, restoreHistory, locked]);
+
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.shiftKey && e.key === 'R') {
+        handleToggle();
+      }
+    };
+
+    document.addEventListener('keydown', listener);
+
+    return () => document.removeEventListener('keydown', listener);
+  }, [handleToggle]);
 
   return (
     <>
@@ -31,7 +51,6 @@ export function UnselectButton() {
             variants={variants}
           >
             <Tooltip
-              hideDelay={0}
               showDelay={0}
               content={
                 hasHistory
@@ -50,10 +69,7 @@ export function UnselectButton() {
                   styles.unselectButton,
                   noSelected && !hasHistory && styles.disabled,
                 )}
-                onClick={() => {
-                  if (hasHistory) restoreHistory();
-                  else if (!noSelected) unselectAll(true);
-                }}
+                onClick={handleToggle}
               >
                 {hasHistory ? <BiUndo /> : <BiTrash />}
               </button>

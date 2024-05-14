@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { BiPause, BiPlay } from 'react-icons/bi/index';
 
 import { useSoundStore } from '@/store';
@@ -12,24 +12,39 @@ export function PlayButton() {
   const pause = useSoundStore(state => state.pause);
   const toggle = useSoundStore(state => state.togglePlay);
   const noSelected = useSoundStore(state => state.noSelected());
+  const locked = useSoundStore(state => state.locked);
 
   const showSnackbar = useSnackbar();
 
-  const handleClick = () => {
+  const handleToggle = useCallback(() => {
+    if (locked) return;
+
     if (noSelected) return showSnackbar('Please first select a sound to play.');
 
     toggle();
-  };
+  }, [showSnackbar, toggle, noSelected, locked]);
 
   useEffect(() => {
     if (isPlaying && noSelected) pause();
   }, [isPlaying, pause, noSelected]);
 
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.shiftKey && e.key === ' ') {
+        handleToggle();
+      }
+    };
+
+    document.addEventListener('keydown', listener);
+
+    return () => document.removeEventListener('keydown', listener);
+  }, [handleToggle]);
+
   return (
     <button
       aria-disabled={noSelected}
       className={cn(styles.playButton, noSelected && styles.disabled)}
-      onClick={handleClick}
+      onClick={handleToggle}
     >
       {isPlaying ? (
         <>

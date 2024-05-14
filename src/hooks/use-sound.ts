@@ -2,7 +2,9 @@ import { useMemo, useEffect, useCallback, useState } from 'react';
 import { Howl } from 'howler';
 
 import { useLoadingStore } from '@/store';
+import { subscribe } from '@/lib/event';
 import { useSSR } from './use-ssr';
+import { FADE_OUT } from '@/constants/events';
 
 export function useSound(
   src: string,
@@ -62,9 +64,27 @@ export function useSound(
     if (sound) sound.pause();
   }, [sound]);
 
+  const fadeOut = useCallback(
+    (duration: number) => {
+      sound?.fade(sound.volume(), 0, duration);
+
+      setTimeout(() => {
+        pause();
+        sound?.volume(options.volume || 0.5);
+      }, duration);
+    },
+    [options.volume, sound, pause],
+  );
+
+  useEffect(() => {
+    const listener = (e: { duration: number }) => fadeOut(e.duration);
+
+    return subscribe(FADE_OUT, listener);
+  }, [fadeOut]);
+
   const control = useMemo(
-    () => ({ isLoading, pause, play, stop }),
-    [play, stop, pause, isLoading],
+    () => ({ fadeOut, isLoading, pause, play, stop }),
+    [play, stop, pause, isLoading, fadeOut],
   );
 
   return control;

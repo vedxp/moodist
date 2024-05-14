@@ -1,9 +1,4 @@
 .wrapper {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 5;
-
   & .menuButton {
     display: flex;
     align-items: center;
@@ -18,40 +13,29 @@
     border-radius: 50%;
     transition: 0.2s;
 
-    &:hover {
+    &:focus-visible {
+      outline: 2px solid var(--color-neutral-400);
+      outline-offset: 2px;
+    }
+
+    &:hover,
+    &:focus-visible {
       background-color: var(--color-neutral-200);
     }
   }
+}
 
-  & .menu {
-    display: flex;
-    flex-direction: column;
-    row-gap: 4px;
-    width: 240px;
-    padding: 4px;
-    background-color: var(--color-neutral-100);
-    border: 1px solid var(--color-neutral-300);
-    border-radius: 4px;
-
-    & .menuItem {
-      position: flex;
-      align-items: center;
-      width: 100%;
-      padding: 12px 8px;
-      font-size: var(--font-sm);
-      font-weight: 500;
-      color: var(--color-foreground-subtle);
-      cursor: pointer;
-      background-color: transparent;
-      border: 1px solid var(--color-neutral-200);
-      border-radius: 4px;
-      outline: none;
-      transition: 0.2s;
-
-      &:hover {
-        color: var(--color-foreground);
-        background-color: var(--color-neutral-200);
-      }
-    }
-  }
+.menu {
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  width: 250px;
+  height: max-content;
+  max-height: var(--radix-dropdown-menu-content-available-height);
+  padding: 4px;
+  overflow: auto;
+  background-color: var(--color-neutral-100);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 4px;
 }

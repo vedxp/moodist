@@ -3,7 +3,9 @@
 
   .container {
     position: relative;
-    padding: 120px 0 60px;
+    padding: 100px 0 80px;
+
+    /* padding: 120px 0 60px; */
 
     & .pattern {
       position: absolute;
@@ -18,7 +20,7 @@
       );
       background-position: top center;
       background-size: 31px 31px;
-      opacity: 0.8;
+      opacity: 0.9;
       mask-image: linear-gradient(#fff, transparent, transparent);
     }
   }
@@ -59,7 +61,7 @@
       }
     }
 
-    & h1 {
+    & h2 {
       font-family: var(--font-display);
       font-size: var(--font-2xlg);
       font-weight: 600;

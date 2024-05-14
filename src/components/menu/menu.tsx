@@ -1,92 +1,150 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { IoMenu, IoClose } from 'react-icons/io5/index';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { AnimatePresence, motion } from 'framer-motion';
+
 import {
-  useFloating,
-  autoUpdate,
-  offset,
-  flip,
-  shift,
-  useClick,
-  useDismiss,
-  useRole,
-  useInteractions,
-  FloatingFocusManager,
-} from '@floating-ui/react';
-
-import { ShuffleItem, ShareItem, DonateItem } from './items';
+  ShuffleItem,
+  ShareItem,
+  DonateItem,
+  NotepadItem,
+  SourceItem,
+  PomodoroItem,
+  PresetsItem,
+  ShortcutsItem,
+  SleepTimerItem,
+  CountdownTimerItem,
+} from './items';
+import { Divider } from './divider';
 import { ShareLinkModal } from '@/components/modals/share-link';
-
-import { slideY, fade, mix } from '@/lib/motion';
+import { PresetsModal } from '@/components/modals/presets';
+import { ShortcutsModal } from '@/components/modals/shortcuts';
+import { SleepTimerModal } from '@/components/modals/sleep-timer';
+import { Notepad, Pomodoro } from '@/components/toolbox';
+import { fade, mix, slideY } from '@/lib/motion';
+import { useSoundStore } from '@/store';
 
 import styles from './menu.module.css';
+import { useCloseListener } from '@/hooks/use-close-listener';
+import { closeModals } from '@/lib/modal';
 
 export function Menu() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [showShareLink, setShowShareLink] = useState(false);
+  const noSelected = useSoundStore(state => state.noSelected());
 
-  const variants = mix(slideY(-20), fade());
+  const initial = useMemo(
+    () => ({
+      notepad: false,
+      pomodoro: false,
+      presets: false,
+      shareLink: false,
+      shortcuts: false,
+      sleepTimer: false,
+    }),
+    [],
+  );
 
-  const { context, floatingStyles, refs } = useFloating({
-    middleware: [offset(12), flip(), shift()],
-    onOpenChange: setIsOpen,
-    open: isOpen,
-    placement: 'top-end',
-    whileElementsMounted: autoUpdate,
-  });
+  const [modals, setModals] = useState(initial);
 
-  const click = useClick(context);
-  const dismiss = useDismiss(context);
-  const role = useRole(context);
+  const close = useCallback((name: string) => {
+    setModals(prev => ({ ...prev, [name]: false }));
+  }, []);
 
-  const { getFloatingProps, getReferenceProps } = useInteractions([
-    click,
-    dismiss,
-    role,
-  ]);
+  const closeAll = useCallback(() => setModals(initial), [initial]);
+
+  const open = useCallback(
+    (name: string) => {
+      closeAll();
+      setIsOpen(false);
+      closeModals();
+      setModals(prev => ({ ...prev, [name]: true }));
+    },
+    [closeAll],
+  );
+
+  useHotkeys('shift+m', () => setIsOpen(prev => !prev));
+  useHotkeys('shift+n', () => open('notepad'));
+  useHotkeys('shift+p', () => open('pomodoro'));
+  useHotkeys('shift+alt+p', () => open('presets'));
+  useHotkeys('shift+h', () => open('shortcuts'));
+  useHotkeys('shift+s', () => open('shareLink'), { enabled: !noSelected });
+  useHotkeys('shift+t', () => open('sleepTimer'));
+
+  useCloseListener(closeAll);
+
+  const variants = mix(fade(), slideY());
 
   return (
     <>
       <div className={styles.wrapper}>
-        <button
-          aria-label="Menu"
-          className={styles.menuButton}
-          ref={refs.setReference}
-          onClick={() => setIsOpen(prev => !prev)}
-          {...getReferenceProps()}
-        >
-          {isOpen ? <IoClose /> : <IoMenu />}
-        </button>
+        <DropdownMenu.Root open={isOpen} onOpenChange={o => setIsOpen(o)}>
+          <DropdownMenu.Trigger asChild>
+            <button aria-label="Menu" className={styles.menuButton}>
+              {isOpen ? <IoClose /> : <IoMenu />}
+            </button>
+          </DropdownMenu.Trigger>
 
-        <AnimatePresence>
-          {isOpen && (
-            <FloatingFocusManager context={context} modal={false}>
-              <div
-                ref={refs.setFloating}
-                style={floatingStyles}
-                {...getFloatingProps()}
-              >
-                <motion.div
-                  animate="show"
-                  className={styles.menu}
-                  exit="hidden"
-                  initial="hidden"
-                  variants={variants}
+          <AnimatePresence>
+            {isOpen && (
+              <DropdownMenu.Portal forceMount>
+                <DropdownMenu.Content
+                  align="end"
+                  asChild
+                  collisionPadding={10}
+                  side="top"
+                  sideOffset={12}
                 >
-                  <ShareItem open={() => setShowShareLink(true)} />
-                  <ShuffleItem />
-                  <DonateItem />
-                </motion.div>
-              </div>
-            </FloatingFocusManager>
-          )}
-        </AnimatePresence>
+                  <motion.div
+                    animate="show"
+                    className={styles.menu}
+                    exit="hidden"
+                    initial="hidden"
+                    variants={variants}
+                  >
+                    <PresetsItem open={() => open('presets')} />
+                    <ShareItem open={() => open('shareLink')} />
+                    <ShuffleItem />
+                    <SleepTimerItem open={() => open('sleepTimer')} />
+
+                    <Divider />
+                    <NotepadItem open={() => open('notepad')} />
+                    <PomodoroItem open={() => open('pomodoro')} />
+                    <CountdownTimerItem />
+
+                    <Divider />
+                    <ShortcutsItem open={() => open('shortcuts')} />
+
+                    <Divider />
+                    <DonateItem />
+                    <SourceItem />
+                  </motion.div>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+            )}
+          </AnimatePresence>
+        </DropdownMenu.Root>
       </div>
 
       <ShareLinkModal
-        show={showShareLink}
-        onClose={() => setShowShareLink(false)}
+        show={modals.shareLink}
+        onClose={() => close('shareLink')}
+      />
+      <ShortcutsModal
+        show={modals.shortcuts}
+        onClose={() => close('shortcuts')}
+      />
+      <PresetsModal show={modals.presets} onClose={() => close('presets')} />
+      <Notepad show={modals.notepad} onClose={() => close('notepad')} />
+      <Pomodoro
+        open={() => open('pomodoro')}
+        show={modals.pomodoro}
+        onClose={() => close('pomodoro')}
+      />
+      <SleepTimerModal
+        show={modals.sleepTimer}
+        onClose={() => close('sleepTimer')}
       />
     </>
   );
